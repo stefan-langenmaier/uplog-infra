@@ -1,0 +1,10 @@
+version: "3.6"
+services:
+  nothing:
+    image: busybox:latest
+    command: /bin/true
+    networks:
+      - proxy
+networks:
+  proxy:
+    name: 'proxy'
