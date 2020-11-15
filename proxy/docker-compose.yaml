@@ -1,0 +1,36 @@
+version: "3.6"
+services:
+    proxy: 
+        image: nginx:latest
+        restart: always
+        volumes:
+            - ./public:/var/www/html
+            - /data/blog:/var/www/blog
+            - ./conf.d:/etc/nginx/conf.d
+            - ./certbot/conf:/etc/nginx/ssl
+            - ./certbot/data-redmine:/var/www/certbot-redmine
+            - ./certbot/data-blog:/var/www/certbot-blog
+        ports:
+            - 80:80
+            - 443:443
+
+    cert_redmine:
+        image: certbot/certbot:latest
+        command: certonly --webroot --webroot-path=/var/www/certbot --email stefan.langenmaier@gmail.com --agree-tos --no-eff-email -d redmine.up-log.de
+        volumes:
+            - ./certbot/conf:/etc/letsencrypt
+            - ./certbot/logs:/var/log/letsencrypt
+            - ./certbot/data-redmine:/var/www/certbot
+
+    cert_blog:
+        image: certbot/certbot:latest
+        command: certonly --webroot --webroot-path=/var/www/certbot --email stefan.langenmaier@gmail.com --agree-tos --no-eff-email -d blog.up-log.de
+        volumes:
+            - ./certbot/conf:/etc/letsencrypt
+            - ./certbot/logs:/var/log/letsencrypt
+            - ./certbot/data-blog:/var/www/certbot
+
+networks:
+  default:
+    external:
+      name: proxy
