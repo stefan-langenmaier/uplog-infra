@@ -1,0 +1,8 @@
+version: "3.6"
+services:
+    proxy: 
+        image: slangenmaier/counterstrike-15:latest
+        restart: always
+        ports:
+            - 27015:27015/udp
+
