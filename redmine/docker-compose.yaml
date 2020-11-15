@@ -1,0 +1,13 @@
+version: "3.6"
+services:
+  redmine: 
+    image: redmine:latest
+    restart: always
+    volumes:
+      - /data/redmine/files:/usr/src/redmine/files
+      - /data/redmine/db/production.db:/usr/src/redmine/sqlite/redmine.db
+
+networks:
+  default:
+    external:
+      name: proxy
