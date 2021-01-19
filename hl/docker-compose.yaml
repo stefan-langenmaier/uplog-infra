@@ -1,0 +1,11 @@
+version: "3.6"
+services:
+    server: 
+        image: slangenmaier/counterstrike-15:latest
+        restart: always
+        ports:
+            - 27015:27015/udp
+        volumes:
+            - ./start.sh:/home/cs/hlds_l/start.sh
+            - ./mapcycle.txt:/home/cs/hlds_l/cstrike/mapcycle.txt
+            - ./server.cfg:/home/cs/hlds_l/cstrike/server.cfg
