@@ -10,6 +10,7 @@ services:
             - ./certbot/conf:/etc/nginx/ssl
             - ./certbot/data-redmine:/var/www/certbot-redmine
             - ./certbot/data-blog:/var/www/certbot-blog
+            - ./certbot/data-default:/var/www/certbot-default
         ports:
             - 80:80
             - 443:443
@@ -29,6 +30,14 @@ services:
             - ./certbot/conf:/etc/letsencrypt
             - ./certbot/logs:/var/log/letsencrypt
             - ./certbot/data-blog:/var/www/certbot
+
+    cert_default:
+        image: certbot/certbot:latest
+        command: certonly --webroot --webroot-path=/var/www/certbot --email stefan.langenmaier@gmail.com --agree-tos --no-eff-email -d up-log.de
+        volumes:
+            - ./certbot/conf:/etc/letsencrypt
+            - ./certbot/logs:/var/log/letsencrypt
+            - ./certbot/data-default:/var/www/certbot
 
 networks:
   default:
