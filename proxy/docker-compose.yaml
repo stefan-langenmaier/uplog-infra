@@ -11,6 +11,7 @@ services:
             - ./certbot/data-redmine:/var/www/certbot-redmine
             - ./certbot/data-blog:/var/www/certbot-blog
             - ./certbot/data-default:/var/www/certbot-default
+            - ./certbot/data-geodiscovery-cloud:/var/www/certbot-geodiscovery-cloud
         ports:
             - 80:80
             - 443:443
@@ -38,6 +39,14 @@ services:
             - ./certbot/conf:/etc/letsencrypt
             - ./certbot/logs:/var/log/letsencrypt
             - ./certbot/data-default:/var/www/certbot
+
+    cert_geodiscovery_cloud:
+        image: certbot/certbot:latest
+        command: certonly --webroot --webroot-path=/var/www/certbot --email stefan.langenmaier@gmail.com --agree-tos --no-eff-email -d cloud.geodiscovery.xn--rro-pla.de
+        volumes:
+            - ./certbot/conf:/etc/letsencrypt
+            - ./certbot/logs:/var/log/letsencrypt
+            - ./certbot/data-geodiscovery-cloud:/var/www/certbot
 
 networks:
   default:

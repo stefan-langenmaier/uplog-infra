@@ -1,0 +1,15 @@
+version: "3.6"
+services:
+  geodiscovery_cloud: 
+    image: nextcloud:20-apache
+    ports:
+      - 8080:80
+    restart: always
+    volumes:
+      - /data/geodiscovery/cloud/data:/var/www/html/data
+      - /data/geodiscovery/cloud/config:/var/www/html/config
+
+networks:
+  default:
+    external:
+      name: proxy
